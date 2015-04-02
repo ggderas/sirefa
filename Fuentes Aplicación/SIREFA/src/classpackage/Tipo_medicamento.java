@@ -2,23 +2,34 @@ package classpackage;
 
 import java.util.Vector;
 
-public class Tipo_medicamento {
-	private int _idTipo_Medicamento;
-	private String _descripcion;
-	private Vector<Medicamento> _medicamento = new Vector<Medicamento>();
+public class Tipo_medicamento 
+{
+    private int idTipoMedicamento;
+    private String _descripcion;
+    private Vector<Medicamento> _medicamento = new Vector<Medicamento>();
 
+    public Tipo_medicamento()
+    {
+        
+    }
+    
+    public Tipo_medicamento(int idTipoMedicamento)
+    {
+        this.setIdTipo_Medicamento(idTipoMedicamento);
+    }
+    
     /**
      * @return the _idTipo_Medicamento
      */
     public int getIdTipo_Medicamento() {
-        return _idTipo_Medicamento;
+        return idTipoMedicamento;
     }
 
     /**
      * @param _idTipo_Medicamento the _idTipo_Medicamento to set
      */
     public void setIdTipo_Medicamento(int _idTipo_Medicamento) {
-        this._idTipo_Medicamento = _idTipo_Medicamento;
+        this.idTipoMedicamento = _idTipo_Medicamento;
     }
 
     /**

@@ -222,7 +222,8 @@ DROP TABLE IF EXISTS `sirefa`.`tipo_medicamento`;
 CREATE TABLE IF NOT EXISTS `sirefa`.`tipo_medicamento` (
   `idTipo_Medicamento` INT(11) NOT NULL AUTO_INCREMENT,
   `descripcion` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idTipo_Medicamento`))
+  PRIMARY KEY (`idTipo_Medicamento`),
+  UNIQUE INDEX `UNIQUE_DESCRIPCION_TIPO_MEDICAMENTO` (`descripcion` ASC))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
@@ -234,9 +235,9 @@ DROP TABLE IF EXISTS `sirefa`.`medicamento`;
 CREATE TABLE IF NOT EXISTS `sirefa`.`medicamento` (
   `idMedicamento` INT(11) NOT NULL AUTO_INCREMENT,
   `nombre` VARCHAR(45) NULL DEFAULT NULL,
-  `idCategoria` INT(11) NULL DEFAULT NULL,
   `idTipoMedicamento` INT(11) NOT NULL,
   PRIMARY KEY (`idMedicamento`),
+  UNIQUE INDEX `UNIQUE_NOMBREMEDICAMENTO` (`nombre` ASC),
   INDEX `FK_TipoMedicamento_idx` (`idTipoMedicamento` ASC),
   CONSTRAINT `FK_TipoMedicamento`
     FOREIGN KEY (`idTipoMedicamento`)

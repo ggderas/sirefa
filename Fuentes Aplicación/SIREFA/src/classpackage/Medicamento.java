@@ -1,15 +1,41 @@
 package classpackage;
 
+import classdbpackage.MedicamentoDB;
 import java.util.Vector;
 
-public class Medicamento {
-	private int _idMedicamento;
-	private String _nombre;
-	private Integer _idCategoria;
-	private Tipo_medicamento _idTipoMedicamento;
-	private Vector<Medicamento_instancia> _medicamento_instancia = new Vector<Medicamento_instancia>();
-	private Vector<Medicamento_prescripcion> _medicamento_prescripcion = new Vector<Medicamento_prescripcion>();
+public class Medicamento 
+{
+    private int _idMedicamento;
+    private String _nombre;
+    private Tipo_medicamento tipoMedicamento;
+    private Vector<Medicamento_instancia> _medicamento_instancia = new Vector<Medicamento_instancia>();
+    private Vector<Medicamento_prescripcion> _medicamento_prescripcion = new Vector<Medicamento_prescripcion>();
+    
+    private MedicamentoDB medicamentoDB;
 
+    public Medicamento(int idMedicamento, String nombre, Tipo_medicamento tipoMedicamento)
+    {
+        this.setIdMedicamento(idMedicamento);
+        this.setNombre(nombre);
+        this.setIdTipoMedicamento(tipoMedicamento);
+        
+        this.medicamentoDB = new MedicamentoDB();
+    }
+    
+    public Medicamento(int idMedicamento, String nombre, int idTipoMedicamento)
+    {
+        this.setIdMedicamento(idMedicamento);
+        this.setNombre(nombre);
+        
+        this.medicamentoDB = new MedicamentoDB();
+        this.tipoMedicamento = new Tipo_medicamento(idTipoMedicamento);
+    }    
+    
+    public Medicamento()
+    {
+        this.medicamentoDB = new MedicamentoDB();
+    }    
+    
     /**
      * @return the _idMedicamento
      */
@@ -39,31 +65,17 @@ public class Medicamento {
     }
 
     /**
-     * @return the _idCategoria
-     */
-    public Integer getIdCategoria() {
-        return _idCategoria;
-    }
-
-    /**
-     * @param _idCategoria the _idCategoria to set
-     */
-    public void setIdCategoria(Integer _idCategoria) {
-        this._idCategoria = _idCategoria;
-    }
-
-    /**
      * @return the _idTipoMedicamento
      */
     public Tipo_medicamento getIdTipoMedicamento() {
-        return _idTipoMedicamento;
+        return tipoMedicamento;
     }
 
     /**
      * @param _idTipoMedicamento the _idTipoMedicamento to set
      */
     public void setIdTipoMedicamento(Tipo_medicamento _idTipoMedicamento) {
-        this._idTipoMedicamento = _idTipoMedicamento;
+        this.tipoMedicamento = _idTipoMedicamento;
     }
 
     /**
@@ -92,5 +104,19 @@ public class Medicamento {
      */
     public void setMedicamento_prescripcion(Vector<Medicamento_prescripcion> _medicamento_prescripcion) {
         this._medicamento_prescripcion = _medicamento_prescripcion;
+    }
+
+    /**
+     * @return the medicamentoDB
+     */
+    public MedicamentoDB getMedicamentoDB() {
+        return medicamentoDB;
+    }
+
+    /**
+     * @param medicamentoDB the medicamentoDB to set
+     */
+    public void setMedicamentoDB(MedicamentoDB medicamentoDB) {
+        this.medicamentoDB = medicamentoDB;
     }
 }
