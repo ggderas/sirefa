@@ -1,16 +1,26 @@
 package classpackage;
 
+import classdbpackage.EmpleadoDB;
 import java.util.Date;
 import java.util.Vector;
 
-public class Empleado {
-	private String _nombreDeUsuario;
-	private String _clave;
-	private Date _fechaIngreso;
-	private Vector<Roles> _idRol = new Vector<Roles>();
-	private Persona _idPersona;
-	private Tipo_empleado _idTipoEmpleado;
-	private Vector<Cita> _cita = new Vector<Cita>();
+public class Empleado 
+{
+    private String _nombreDeUsuario;
+    private String _clave;
+    private Date _fechaIngreso;
+    private Vector<Roles> _idRol = new Vector<Roles>();
+    private Persona persona;
+    private Tipo_empleado _idTipoEmpleado;
+    private Vector<Cita> _cita = new Vector<Cita>();
+    
+    private EmpleadoDB empleadoDB;
+        
+    public Empleado()
+    {
+        this.persona = new Persona();
+        this.empleadoDB = new EmpleadoDB();
+    }
 
     /**
      * @return the _nombreDeUsuario
@@ -72,14 +82,14 @@ public class Empleado {
      * @return the _idPersona
      */
     public Persona getIdPersona() {
-        return _idPersona;
+        return persona;
     }
 
     /**
      * @param _idPersona the _idPersona to set
      */
     public void setIdPersona(Persona _idPersona) {
-        this._idPersona = _idPersona;
+        this.persona = _idPersona;
     }
 
     /**
@@ -108,5 +118,19 @@ public class Empleado {
      */
     public void setCita(Vector<Cita> _cita) {
         this._cita = _cita;
+    }
+
+    /**
+     * @return the empleadoDB
+     */
+    public EmpleadoDB getEmpleadoDB() {
+        return empleadoDB;
+    }
+
+    /**
+     * @param empleadoDB the empleadoDB to set
+     */
+    public void setEmpleadoDB(EmpleadoDB empleadoDB) {
+        this.empleadoDB = empleadoDB;
     }
 }

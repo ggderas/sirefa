@@ -5,7 +5,7 @@
  */
 
 package sirefa;
-import classdbpackage.PersonaDB;
+import classdbpackage.EmpleadoDB;
 import classpackage.*;
 import java.util.Date;
 
@@ -20,7 +20,7 @@ public class SIREFA {
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
+        //TO DO: Code here
     }
     
 }
