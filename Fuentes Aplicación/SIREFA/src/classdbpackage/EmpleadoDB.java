@@ -35,7 +35,7 @@ public class EmpleadoDB
         this.conexion = new Conexion();
     }
     
-    public String registrarPersona(Empleado empleado)
+    public String registrarEmpleado(Empleado empleado)
     {
         Persona persona = empleado.getIdPersona();
         

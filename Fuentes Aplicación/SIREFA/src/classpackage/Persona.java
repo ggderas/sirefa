@@ -15,6 +15,19 @@ public class Persona
 	private String _numeroTelefono;
 	private Empleado _empleado;
 	private Paciente _paciente;
+        
+    public Persona(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+                   String direccion, Date fechaNacimiento)
+    {
+        this.setPrimerNombre(primerNombre);
+        this.setSegundoNombre(segundoNombre);
+        this.setPrimerApellido(primerApellido);
+        this.setSegundoApellido(segundoApellido);
+        this.setDireccion(direccion);
+        this.setFechaDeNacimiento(fechaNacimiento);
+    }
+    
+    public Persona(){}
 
     /**
      * @return the _idPersona

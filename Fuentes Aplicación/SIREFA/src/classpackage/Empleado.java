@@ -21,6 +21,18 @@ public class Empleado
         this.persona = new Persona();
         this.empleadoDB = new EmpleadoDB();
     }
+    
+    public Empleado(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
+                    String direccion, Date fechaNacimiento, String nombreUsuario, String clave)
+    {
+        this.persona = new Persona(primerNombre, segundoNombre, primerApellido, segundoApellido,
+                        direccion, fechaNacimiento);
+        
+        this.setNombreDeUsuario(nombreUsuario);
+        this.setClave(clave);
+        
+        this.empleadoDB = new EmpleadoDB();
+    }
 
     /**
      * @return the _nombreDeUsuario
