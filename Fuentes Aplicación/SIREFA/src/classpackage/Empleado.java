@@ -1,6 +1,7 @@
 package classpackage;
 
 import classdbpackage.EmpleadoDB;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
 
@@ -9,7 +10,7 @@ public class Empleado
     private String _nombreDeUsuario;
     private String _clave;
     private Date _fechaIngreso;
-    private Vector<Roles> _idRol = new Vector<Roles>();
+    private ArrayList<Roles> _idRol = new ArrayList<Roles>();
     private Persona persona;
     private Tipo_empleado _idTipoEmpleado;
     private Vector<Cita> _cita = new Vector<Cita>();
@@ -32,6 +33,15 @@ public class Empleado
         this.setClave(clave);
         
         this.empleadoDB = new EmpleadoDB();
+    }
+    
+    public Empleado(int idEmpleado, String primerNombre, String segundoNombre,
+                    String primerApellido, String segundoApellido)
+    {
+        this.persona = new Persona(idEmpleado, primerNombre, segundoNombre,
+                        primerApellido, segundoApellido);
+        
+        this.empleadoDB = new EmpleadoDB(this);
     }
 
     /**
@@ -79,14 +89,14 @@ public class Empleado
     /**
      * @return the _idRol
      */
-    public Vector<Roles> getIdRol() {
+    public ArrayList<Roles> getIdRol() {
         return _idRol;
     }
 
     /**
      * @param _idRol the _idRol to set
      */
-    public void setIdRol(Vector<Roles> _idRol) {
+    public void setIdRol(ArrayList<Roles> _idRol) {
         this._idRol = _idRol;
     }
 
@@ -144,5 +154,30 @@ public class Empleado
      */
     public void setEmpleadoDB(EmpleadoDB empleadoDB) {
         this.empleadoDB = empleadoDB;
+    }
+    
+    @Override
+    public String toString()
+    {
+        String nombreCompleto = "";
+        
+        nombreCompleto += this.getIdPersona().getPrimerNombre();
+        nombreCompleto += " ";
+        
+        if(this.getIdPersona().getSegundoNombre() != null)
+        {
+            nombreCompleto += this.getIdPersona().getSegundoNombre();
+        }
+        
+        nombreCompleto += " ";
+        nombreCompleto += this.getIdPersona().getPrimerApellido();
+        nombreCompleto += " ";
+        
+        if(this.getIdPersona().getSegundoApellido() != null)
+        {
+            nombreCompleto += this.getIdPersona().getSegundoApellido();
+        }        
+        
+        return nombreCompleto;
     }
 }

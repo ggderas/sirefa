@@ -27,6 +27,16 @@ public class Persona
         this.setFechaDeNacimiento(fechaNacimiento);
     }
     
+    public Persona(int idPersona, String primerNombre, String segundoNombre, 
+                        String primerApellido, String segundoApellido)
+    {
+        this.setIdPersona(idPersona);
+        this.setPrimerNombre(primerNombre);
+        this.setSegundoNombre(segundoNombre);
+        this.setPrimerApellido(primerApellido);
+        this.setSegundoApellido(segundoApellido);
+    }    
+    
     public Persona(){}
 
     /**

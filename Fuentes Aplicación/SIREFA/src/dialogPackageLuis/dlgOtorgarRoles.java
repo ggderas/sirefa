@@ -19,7 +19,9 @@ import javax.swing.JOptionPane;
 public class dlgOtorgarRoles extends javax.swing.JDialog {
 
     
-    private ArrayList<Roles> listaDeRoles;
+    private ArrayList<Roles> listaDeRolesExistentes;
+    private ArrayList<Roles> listaDeRolesNuevos; //Roles que se les ha asignado al usuario
+    private ArrayList<Roles> listaDeRolesEliminados; //Role que se le han eliminado al usuario
     private Empleado empleado;
     private RolDB rolDB;
     /**
@@ -33,7 +35,10 @@ public class dlgOtorgarRoles extends javax.swing.JDialog {
         this.empleado = new Empleado();
         this.rolDB = new RolDB();
         
-        this.listaDeRoles = new  ArrayList<Roles>();
+        this.listaDeRolesExistentes = new  ArrayList<Roles>();
+        this.listaDeRolesNuevos = new  ArrayList<Roles>();
+        this.listaDeRolesEliminados = new  ArrayList<Roles>();
+                
     }
     
     public dlgOtorgarRoles(java.awt.Frame parent, boolean modal, Empleado empleado) 
@@ -42,9 +47,11 @@ public class dlgOtorgarRoles extends javax.swing.JDialog {
         initComponents();
         
         this.empleado = empleado;
-        this.rolDB = new RolDB();
+        this.rolDB = new RolDB(this.empleado);
         
-        this.listaDeRoles = new  ArrayList<Roles>();
+        this.listaDeRolesExistentes = new  ArrayList<Roles>();
+        this.listaDeRolesNuevos = new  ArrayList<Roles>();
+        this.listaDeRolesEliminados = new  ArrayList<Roles>();        
     }    
 
     /**
@@ -90,6 +97,11 @@ public class dlgOtorgarRoles extends javax.swing.JDialog {
 
         btnEliminarRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/rsc/arrow_left.png"))); // NOI18N
         btnEliminarRol.setText("Eliminar rol");
+        btnEliminarRol.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarRolActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -145,15 +157,27 @@ public class dlgOtorgarRoles extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.cargarRoles();
+        this.cargarRolesDeUsuario();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnAgregarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRolActionPerformed
         
         Roles rolSeleccionado = (Roles)this.listBoxRolesExistentes.getSelectedValue();
+        String mensajeError = null;
         
         if(rolSeleccionado != null)
         {
+            mensajeError = this.empleado.getEmpleadoDB().asignarRol(rolSeleccionado);
             
+            if(mensajeError == null)
+            {
+                JOptionPane.showMessageDialog(this, "Se ha asignado el rol exitosamente", "Otorgar roles a usuario", JOptionPane.INFORMATION_MESSAGE);
+                this.cargarRolesDeUsuario();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, mensajeError, "Otorgar roles a usuario", JOptionPane.ERROR_MESSAGE);
+            }
         }
         else
         {
@@ -162,11 +186,44 @@ public class dlgOtorgarRoles extends javax.swing.JDialog {
         
     }//GEN-LAST:event_btnAgregarRolActionPerformed
 
+    private void btnEliminarRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarRolActionPerformed
+        
+        Roles rolSeleccionado = (Roles)this.listBoxRolesUsuario.getSelectedValue();
+        String mensajeError = null;
+        
+        if(rolSeleccionado != null)
+        {
+            mensajeError = this.empleado.getEmpleadoDB().eliminarRol(rolSeleccionado);
+            
+            if(mensajeError == null)
+            {
+                if(JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar este rol del usuario?", "Eliminar rol", JOptionPane.YES_NO_OPTION) == 0)
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha eliminado el rol exitosamente", "Otorgar roles a usuario", JOptionPane.INFORMATION_MESSAGE);
+                    this.cargarRolesDeUsuario();
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, mensajeError, "Otorgar roles a usuario", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Seleccione un rol", "Otorgar roles a usuario", JOptionPane.WARNING_MESSAGE);
+        }        
+    }//GEN-LAST:event_btnEliminarRolActionPerformed
+
     private void cargarRoles()
     {
-        this.listaDeRoles = this.rolDB.obtenerRoles();
-        
-        this.listBoxRolesExistentes.setListData(this.listaDeRoles.toArray());
+        this.listaDeRolesExistentes = this.rolDB.obtenerRoles();
+        this.listBoxRolesExistentes.setListData(this.listaDeRolesExistentes.toArray());
+    }
+    
+    private void cargarRolesDeUsuario()    
+    {
+        ArrayList<Roles> listaDeRolesDeUsuario = this.empleado.getEmpleadoDB().obtenerRoles();
+        this.listBoxRolesUsuario.setListData(listaDeRolesDeUsuario.toArray());
     }
     
     /**

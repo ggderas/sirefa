@@ -7,6 +7,7 @@
 package classdbpackage;
 
 import classpackage.Conexion;
+import classpackage.Empleado;
 import classpackage.Roles;
 import classpackage.Tipo_medicamento;
 import java.sql.CallableStatement;
@@ -24,11 +25,18 @@ public class RolDB
     private Conexion conexion;
     private ResultSet resultSet;
     private Roles rol;
+    private Empleado empleado;
     
     public RolDB()
     {
         this.conexion = new Conexion();
     }
+    
+    public RolDB(Empleado empleado)
+    {
+        this.conexion = new Conexion();
+        this.empleado = empleado;
+    }    
     
     public ArrayList<Roles> obtenerRoles()
     {
@@ -52,6 +60,7 @@ public class RolDB
             
             if(mensajeError != null)
             {
+                System.out.println(mensajeError);
                 return null;
             }
             

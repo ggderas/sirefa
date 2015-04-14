@@ -9,11 +9,13 @@ package classdbpackage;
 import classpackage.Conexion;
 import classpackage.Empleado;
 import classpackage.Persona;
-
+import classpackage.Roles;
 import java.sql.CallableStatement;
 import java.sql.Date;
-import java.sql.Types;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.util.ArrayList;
 
 /**
  *
@@ -22,7 +24,8 @@ import java.sql.SQLException;
 public class EmpleadoDB 
 {
     private Empleado empleado;
-    Conexion conexion;
+    private ResultSet resultSet;
+    private Conexion conexion;
     
     public EmpleadoDB(Empleado empleado)
     {
@@ -75,6 +78,174 @@ public class EmpleadoDB
         }
         
     }
+    
+    public ArrayList<Roles> obtenerRoles()
+    {
+        try
+        {
+            ArrayList<Roles> listaDeRoles = new ArrayList<Roles>();
+            String mensajeError = null;
+
+            CallableStatement callStatement = this.conexion.getCallStatement();
+
+            callStatement = this.conexion.getConn().prepareCall("{CALL SP_OBTENER_ROLES_USUARIO(?,?) }");
+            
+            //Registrar parámetro de entrada
+            callStatement.setInt("pnCodigoEmpleado", this.empleado.getIdPersona().getIdPersona());
+            
+            //Registrar parámetro de salida
+            callStatement.registerOutParameter("pcMensajeError", Types.VARCHAR);
+
+            //Ejecutar PL
+            callStatement.execute();
+            
+            //Obtener parámetro de salida
+            mensajeError = callStatement.getString("pcMensajeError");
+            
+            if(mensajeError != null)
+            {
+                System.out.println(mensajeError);
+                return null;
+            }
+            
+            //Obtener select (result set)
+            this.resultSet = callStatement.getResultSet();
+            
+            while(this.resultSet.next())
+            {
+                int idRol = this.resultSet.getInt("idRol");
+                String nombre = this.resultSet.getString("Nombre");
+            
+                Roles rol = new Roles(idRol, nombre);
+                
+                this.empleado.getIdRol().add(rol);
+                listaDeRoles.add(rol);
+            }
+           
+            return listaDeRoles;
+
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+            return null;
+        }              
+    }
+    
+    public ArrayList<Empleado> obtenerEmpleados()
+    {
+        try
+        {
+            ArrayList<Empleado> listaDeEmpleados = new ArrayList<Empleado>();
+            String mensajeError = null;
+
+            CallableStatement callStatement = this.conexion.getCallStatement();
+
+            callStatement = this.conexion.getConn().prepareCall("{CALL SP_OBTENER_EMPLEADOS(?) }");
+            
+            //Registrar parámetro de salida
+            callStatement.registerOutParameter("pcMensajeError", Types.VARCHAR);
+
+            //Ejecutar PL
+            callStatement.execute();
+            
+            //Obtener parámetro de salida
+            mensajeError = callStatement.getString("pcMensajeError");
+            
+            if(mensajeError != null)
+            {
+                return null;
+            }
+            
+            //Obtener select (result set)
+            this.resultSet = callStatement.getResultSet();
+            
+            while(this.resultSet.next())
+            {
+                String primerNombre = this.resultSet.getString("primerNombre");
+                String segundoNombre = this.resultSet.getString("segundoNombre");
+                String primerApellido = this.resultSet.getString("primerApellido");
+                String segundoApellido = this.resultSet.getString("segundoApellido");
+                int idEmpleado = this.resultSet.getInt("idPersona");
+                
+                Empleado empleado = new Empleado(idEmpleado, primerNombre, segundoNombre, primerApellido, segundoApellido);
+                listaDeEmpleados.add(empleado);
+            }
+           
+            return listaDeEmpleados;
+
+        }
+        catch(SQLException e)
+        {
+            return null;
+        }                  
+    }
+    
+    public String asignarRol(Roles rol)
+    {
+        int accionAgregar = 1;
+        String mensajeError = null;
+        
+        try
+        {
+            CallableStatement callStatement = this.conexion.getCallStatement();
+
+            callStatement = this.conexion.getConn().prepareCall("{ CALL SP_ASIGNAR_ROL_USUARIO(?,?,?,?) }");
+
+            //Registrar parámetros de entrada
+            callStatement.setInt("pnCodigoRol", rol.getIdRol());
+            callStatement.setInt("pnCodigoUsuario", this.empleado.getIdPersona().getIdPersona());
+            callStatement.setInt("pnAccion", accionAgregar);
+            
+            //Registrar parámetro de salida
+            callStatement.registerOutParameter("pcMensajeError", Types.VARCHAR);
+            
+            //Ejecutar PL
+            callStatement.execute();
+            
+            //Obtener parámetro de salida
+            mensajeError = callStatement.getString("pcMensajeError");
+            
+            return mensajeError;
+        }
+        catch(SQLException e)
+        {
+            return e.getMessage();
+        }        
+    }
+    
+    public String eliminarRol(Roles rol)
+    {
+        int accionAgregar = 2;
+        String mensajeError = null;
+        
+        try
+        {
+            CallableStatement callStatement = this.conexion.getCallStatement();
+
+            callStatement = this.conexion.getConn().prepareCall("{ CALL SP_ASIGNAR_ROL_USUARIO(?,?,?,?) }");
+
+            //Registrar parámetros de entrada
+            callStatement.setInt("pnCodigoRol", rol.getIdRol());
+            callStatement.setInt("pnCodigoUsuario", this.empleado.getIdPersona().getIdPersona());
+            callStatement.setInt("pnAccion", accionAgregar);
+            
+            //Registrar parámetro de salida
+            callStatement.registerOutParameter("pcMensajeError", Types.VARCHAR);
+            
+            //Ejecutar PL
+            callStatement.execute();
+            
+            //Obtener parámetro de salida
+            mensajeError = callStatement.getString("pcMensajeError");
+            
+            return mensajeError;
+        }
+        catch(SQLException e)
+        {
+            return e.getMessage();
+        }        
+    }    
 
     /**
      * @return the empleado

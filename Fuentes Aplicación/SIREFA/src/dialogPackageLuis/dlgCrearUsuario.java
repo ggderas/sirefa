@@ -9,6 +9,7 @@ package dialogPackageLuis;
 import classpackage.Empleado;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import validaciones.validadorVentana;
 
@@ -264,9 +265,27 @@ public class dlgCrearUsuario extends javax.swing.JDialog {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         
+        ArrayList<String> codigosDeInputNoObligatorios = new ArrayList<String>();
         
-        if(!validadorVentana.hayCamposVacios(this.panelInfoBasica))
+        this.txtSegundoNombre.setName("txtSegundoNombre");
+        this.txtSegundoApellido.setName("txtSegundoApellido");
+        
+        codigosDeInputNoObligatorios.add("txtSegundoNombre");
+        codigosDeInputNoObligatorios.add("txtSegundoApellido");
+        
+        if(!validadorVentana.hayCamposVacios(this.panelInfoBasica, codigosDeInputNoObligatorios))
         {
+            String clave = new String(this.txtClave.getPassword());
+            String confirmacionClave = new String(this.txtConfirmarClave.getPassword());
+            
+            if(!clave.equals(confirmacionClave))
+            {
+                JOptionPane.showMessageDialog(this, "Los campos de clave no coinciden",
+                                        "Registrar nuevo usuario", JOptionPane.WARNING_MESSAGE);
+                
+                return;
+            }
+            
             //Obtener la información básica
             String primerNombre = this.txtPrimerNombre.getText();
             String segundoNombre = this.txtSegundoNombre.getText();
@@ -274,7 +293,6 @@ public class dlgCrearUsuario extends javax.swing.JDialog {
             String segundoApellido = this.txtSegundoApellido.getText();
             String direccion = this.txtDireccion.getText();
             String nombreUsuario = this.txtNombreUsuario.getText();
-            String clave = new String(this.txtClave.getPassword());
             java.util.Date fechaNacimiento = this.calendarFechaNacimiento.getCalendar().getTime();
             
             
@@ -295,6 +313,10 @@ public class dlgCrearUsuario extends javax.swing.JDialog {
             {
                 JOptionPane.showMessageDialog(this, mensajeError, "Registrar nuevo usuario", JOptionPane.ERROR_MESSAGE);                
             }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "Llene los campos obligatorios", "Registrar nuevo usuario", JOptionPane.WARNING_MESSAGE);  
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

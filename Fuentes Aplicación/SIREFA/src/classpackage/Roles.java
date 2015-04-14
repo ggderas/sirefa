@@ -25,7 +25,15 @@ public class Roles
         this.setDescripcion(descripcion);
         
         this.rolDB = new RolDB();
-    }    
+    }  
+    
+    public Roles(int idRol, String nombre)
+    {
+        this.setIdRol(idRol);
+        this.setNombre(nombre);
+        
+        this.rolDB = new RolDB();
+    }       
      
 
     /**
