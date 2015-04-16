@@ -14,31 +14,84 @@ import java.sql.PreparedStatement;
  */
 public class Conexion 
 {
-   private static String DRIVER = "com.mysql.jdbc.Driver";  
-   private static String HOSTURL = "jdbc:mysql://localhost:3306/sirefa";
-
-   //Credenciales 
-   private static String USER = "root";
-   static final String PASS = "";
+    //Credenciales 
+   public Connection conn = null;
+   public CallableStatement callStatement = null;
+   public PreparedStatement prepStatement = null;
+   public ResultSet reader = null;
+    
+    //Driver de conexion a la base de datos
+    private static String DRIVER = "com.mysql.jdbc.Driver";  
+    
+    //URL de conexion a la base datos 
+    private static String HOSTURL = "jdbc:mysql://localhost:3306/sirefa";
+    private static String HOSTURL_CLAUDIO = "jdbc:mysql://127.0.0.1:8889/sirefa?zeroDateTimeBehavior=convertToNull";
+    
+    //El usuario de la base de datos
+    private static String USER = "root";
+    
+    //La clave del usuario de la base de datos
+    static final String PASS = "root";
+    static final String PASS_CLAUDIO = "root";
+    
+    //Metodo para obtener la conexion con la base de datos
+    public static synchronized Connection getConexion() {
+        Connection cn = null;
+        try {
+            //Cargamos el driver y le decimos que vamos a usar
+            //una conexion con mysql
+            Class.forName(DRIVER);
+            
+            //Obtenemos la conexion
+            cn = DriverManager.getConnection(HOSTURL_CLAUDIO, USER, PASS);
+            
+        } catch (Exception e) {
+            cn = null;
+        } finally {
+            return cn;
+        }
    
-   private Connection conn;
-   private CallableStatement callStatement;
-   private PreparedStatement prepStatement;
-   private ResultSet reader;
-   
-   public Conexion()
-   {
-       try
-       {
-           Class.forName(DRIVER);
-           this.conn = DriverManager.getConnection(HOSTURL, USER, PASS);
-       }
-       catch(Exception e)
-       {
-           System.out.println(e.getMessage());
-       }
-   }
+    }
+    
+    public static synchronized void cerrarCall(CallableStatement cl) {
+        try{
+            cl.close();
+        }catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    //Metodo utilizado para cerrar el resulset de datos
+    public static synchronized void cerrarConexion(ResultSet rs) {
+        try{
+            rs.close();
+        } catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    //Metodo utilizado para cerrar la conexion
+    public static synchronized void cerrarConexion(Connection cn) {
+        try{
+            cn.close();
+        }
+        catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+    //Metodo utilizado para deshacer los cambios en la base de datos
+    public static synchronized void deshacerCambios(Connection cn) {
+        try{
+            cn.rollback();
+        }catch (Exception e) 
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 
+   //Metoodos generados por el ORM
+   
     /**
      * @return the DRIVER
      */
@@ -80,11 +133,6 @@ public class Conexion
     public static void setUSER(String aUSER) {
         USER = aUSER;
     }
-   
-   
-   
-
-
     /**
      * @return the conn
      */

@@ -58,6 +58,8 @@ public class MedicamentoDB
 
             //Obtener parámetro de salida
             mensajeError = callStatement.getString("pcMensajeError");
+            
+            
 
             return mensajeError;
         }
