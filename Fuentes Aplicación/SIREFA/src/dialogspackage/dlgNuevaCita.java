@@ -5,6 +5,13 @@
  */
 package dialogspackage;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
+
 /**
  *
  * @author ClaudioPaz
@@ -14,6 +21,8 @@ public class dlgNuevaCita extends javax.swing.JDialog {
     /**
      * Creates new form dlgNuevaCita
      */
+    int hh,mm,ss,dow,mon,yyyy;
+    
     public dlgNuevaCita(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -43,6 +52,7 @@ public class dlgNuevaCita extends javax.swing.JDialog {
         btnGenerarCita = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva Cita");
@@ -104,6 +114,18 @@ public class dlgNuevaCita extends javax.swing.JDialog {
                 .addContainerGap(29, Short.MAX_VALUE))
         );
 
+        calendarPanel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calendarPanel1ActionPerformed(evt);
+            }
+        });
+
+        timePanel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                timePanel1ActionPerformed(evt);
+            }
+        });
+
         txaObservaciones.setColumns(20);
         txaObservaciones.setRows(5);
         jScrollPane1.setViewportView(txaObservaciones);
@@ -129,47 +151,47 @@ public class dlgNuevaCita extends javax.swing.JDialog {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnGenerarCita)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(calendarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addGap(507, 507, 507)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(timePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel7)
+                            .addGap(115, 115, 115)
+                            .addComponent(btnGenerarCita))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
+                                .addComponent(calendarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(timePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addComponent(timePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(34, 34, 34))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(calendarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(calendarPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)))
+                        .addGap(20, 20, 20)
+                        .addComponent(timePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addGap(5, 5, 5)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnGenerarCita)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGenerarCita)
+                    .addComponent(jLabel7))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -181,12 +203,33 @@ public class dlgNuevaCita extends javax.swing.JDialog {
     }//GEN-LAST:event_txfNIdentidadActionPerformed
 
     private void btnGenerarCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarCitaActionPerformed
-        // TODO add your handling code here:
+        
+        /*se genera un objeto tipo date para poder crear una nueva fecha modificada con los 
+        valores antes recogidos*/
+        Date datime = new Date(yyyy,mon,dow,hh,mm,ss);
+        //this.jLabel7.setText(datime.toString());
+      
+        
     }//GEN-LAST:event_btnGenerarCitaActionPerformed
 
     private void cbMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMedicosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMedicosActionPerformed
+
+    
+    private void timePanel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timePanel1ActionPerformed
+       
+       hh = this.timePanel1.getCalendar().getTime().getHours();//obtiene las horas
+       mm = this.timePanel1.getCalendar().getTime().getMinutes();// los minutos
+       ss = this.timePanel1.getCalendar().getTime().getSeconds();// los segundos
+       
+    }//GEN-LAST:event_timePanel1ActionPerformed
+
+    private void calendarPanel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calendarPanel1ActionPerformed
+        dow = this.calendarPanel1.getCalendar().getTime().getDate(); //dia
+        mon = this.calendarPanel1.getCalendar().getTime().getMonth();//mes
+        yyyy = this.calendarPanel1.getCalendar().getTime().getYear();//año
+    }//GEN-LAST:event_calendarPanel1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -240,6 +283,7 @@ public class dlgNuevaCita extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private com.lavantech.gui.comp.TimePanel timePanel1;
