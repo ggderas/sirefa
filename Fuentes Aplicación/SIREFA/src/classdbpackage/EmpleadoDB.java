@@ -246,6 +246,42 @@ public class EmpleadoDB
             return e.getMessage();
         }        
     }    
+    
+    public String iniciarSesion()
+    {
+        try
+        {
+            String mensajeError = null;
+            int codigoUsuario = -1;
+
+            CallableStatement callStatement = this.conexion.getCallStatement();
+
+            callStatement = this.conexion.getConn().prepareCall("{CALL SP_LOGIN(?,?,?,?) }");
+
+            //Registrar parámetros de entrada
+            callStatement.setString("pcNombreUsuario", this.empleado.getNombreDeUsuario());
+            callStatement.setString("pcClave", this.empleado.getClave());
+            
+            //Registrar parámetro de salida
+            callStatement.registerOutParameter("pnCodigoUsuario", Types.INTEGER);
+            callStatement.registerOutParameter("pcMensajeError", Types.VARCHAR);
+
+            //Ejecutar PL
+            callStatement.execute();
+
+            //Obtener parámetro de salida
+            mensajeError = callStatement.getString("pcMensajeError");
+            codigoUsuario = callStatement.getInt("pnCodigoUsuario");
+            
+            this.empleado.getIdPersona().setIdPersona(codigoUsuario);
+
+            return mensajeError;
+        }
+        catch(SQLException e)
+        {
+            return e.getMessage();
+        }        
+    }    
 
     /**
      * @return the empleado

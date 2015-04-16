@@ -170,14 +170,15 @@ public class dlgCrearUsuario extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(calendarFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(calendarFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(calendarFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addComponent(calendarFechaNacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createCompoundBorder());
@@ -308,6 +309,8 @@ public class dlgCrearUsuario extends javax.swing.JDialog {
             {
                 JOptionPane.showMessageDialog(this, "El usuario ha sido registrado de manera exitosa",
                                         "Registrar nuevo usuario", JOptionPane.INFORMATION_MESSAGE);
+                
+                this.setVisible(false);
             }
             else
             {

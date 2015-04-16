@@ -20,7 +20,7 @@ public class Empleado
     public Empleado()
     {
         this.persona = new Persona();
-        this.empleadoDB = new EmpleadoDB();
+        this.empleadoDB = new EmpleadoDB(this);
     }
     
     public Empleado(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido,
@@ -42,6 +42,15 @@ public class Empleado
                         primerApellido, segundoApellido);
         
         this.empleadoDB = new EmpleadoDB(this);
+    }
+    
+    public Empleado(String nombreUsuario, String clave)
+    {
+        this.setNombreDeUsuario(nombreUsuario);
+        this.setClave(clave);
+        
+        this.empleadoDB = new EmpleadoDB(this);
+        this.persona = new Persona();
     }
 
     /**

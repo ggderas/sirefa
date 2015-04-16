@@ -174,6 +174,7 @@ public class dlgEmpleadosPrincipal extends javax.swing.JDialog {
         dialogo.setLocationRelativeTo(this);
 
         dialogo.setVisible(true);        
+        this.cargarEmpleados();
 
     }//GEN-LAST:event_btnNuevoEmpleadoActionPerformed
 
@@ -228,6 +229,8 @@ public class dlgEmpleadosPrincipal extends javax.swing.JDialog {
     private void cargarEmpleados()
     {
         this.listaDeEmpleados = this.empleadoDB.obtenerEmpleados();
+        
+        this.listboxEmpleados.removeAll();
         this.listboxEmpleados.setListData(this.listaDeEmpleados.toArray());
     }
     
