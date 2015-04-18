@@ -166,9 +166,14 @@ public class EmpleadoDB
                 String segundoNombre = this.resultSet.getString("segundoNombre");
                 String primerApellido = this.resultSet.getString("primerApellido");
                 String segundoApellido = this.resultSet.getString("segundoApellido");
+                String direccion = this.resultSet.getString("direccion");
+                String fechaNacimiento = this.resultSet.getDate("fechaDeNacimiento");
+                
                 int idEmpleado = this.resultSet.getInt("idPersona");
                 
-                Empleado empleado = new Empleado(idEmpleado, primerNombre, segundoNombre, primerApellido, segundoApellido);
+                Empleado empleado = new Empleado(idEmpleado, primerNombre, segundoNombre, primerApellido, segundoApellido,
+                                    direccion, fechaNacimiento);
+                                    
                 listaDeEmpleados.add(empleado);
             }
            
