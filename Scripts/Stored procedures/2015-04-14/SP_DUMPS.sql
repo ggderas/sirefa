@@ -276,7 +276,8 @@ BEGIN
     END;    
     
 	SELECT 
-		primerNombre, segundoNombre, primerApellido, segundoApellido,idPersona
+		primerNombre, segundoNombre, primerApellido, segundoApellido,idPersona,
+		direccion, fechaDeNacimiento
 	FROM
 		PERSONA
 	WHERE
