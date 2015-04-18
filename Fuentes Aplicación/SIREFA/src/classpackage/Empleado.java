@@ -44,6 +44,19 @@ public class Empleado
         this.empleadoDB = new EmpleadoDB(this);
     }
     
+    public Empleado(int idEmpleado, String primerNombre, String segundoNombre,
+                    String primerApellido, String segundoApellido, String direccion
+                    Date fechaNacimiento)
+    {
+        this.persona = new Persona(idEmpleado, primerNombre, segundoNombre,
+                        primerApellido, segundoApellido);
+                        
+        this.persona.setDireccion(direccion);
+        this.persona.setFechaDeNacimiento(fechaNacimiento);                        
+        
+        this.empleadoDB = new EmpleadoDB(this);
+    }    
+    
     public Empleado(String nombreUsuario, String clave)
     {
         this.setNombreDeUsuario(nombreUsuario);
