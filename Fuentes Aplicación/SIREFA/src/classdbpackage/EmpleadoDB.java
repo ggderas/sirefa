@@ -167,7 +167,7 @@ public class EmpleadoDB
                 String primerApellido = this.resultSet.getString("primerApellido");
                 String segundoApellido = this.resultSet.getString("segundoApellido");
                 String direccion = this.resultSet.getString("direccion");
-                String fechaNacimiento = this.resultSet.getDate("fechaDeNacimiento");
+                Date fechaNacimiento = this.resultSet.getDate("fechaDeNacimiento");
                 
                 int idEmpleado = this.resultSet.getInt("idPersona");
                 
