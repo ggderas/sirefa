@@ -66,5 +66,146 @@ INSERT INTO ROLES(Nombre, Descripcion)
 VALUES('Personal de registro', 'Tiene permisos para registrar pacientes, actualizar información de pacientes y generar cita');
 
 
+-- Enfermedades
+
+
+-- -----------------------------------------------------
+-- inserts Enfermedades
+-- -----------------------------------------------------
+INSERT INTO enfermedades(descripcion)
+VALUES('Gripe');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Neumonía');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Hipotiroidismo');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Cirrosis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Apendicitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Diverculitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Colon irritable');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Peritonitis');
+ 
+INSERT INTO enfermedades(descripcion)
+VALUES('Higado graso');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Celiaquia');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Diabetes');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Hepatitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('SIDA');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Asma');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Cancer');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Anorexia');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Colera');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Difteria');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Varicela');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Meningitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Fiebre tifoidea');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Absceso');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Anemia');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Amigadalitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Gastroenteritis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Obesidad');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Bronquitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Epilepsia');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Conjuntivitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Raquitismo');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Eyaculacion precoz');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Dermatitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Diarrea');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Epiglotitis aguda');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Rinitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Soplo cardiaco');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Tos seca');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Estrenimiento');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Colitis');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Hemorroides');
+
+INSERT INTO enfermedades(descripcion)
+VALUES('Colesterol');
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
